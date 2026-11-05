@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000a0a">
+  <meta name="description" content="Aizen - programming, technology and cybersecurity.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://audio.jukehost.co.uk" crossorigin>
+  <link rel="preconnect" href="https://media.giphy.com" crossorigin>
+  <title>Aizen | Profile</title>
+</head>
+<body style="margin:0; background:#000a0a;">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&family=Audiowide&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #000a0a;
+    font-family: 'Rajdhani', 'Space Mono', monospace;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* ============================================ */
+  /* --- GIF BACKGROUND --- */
+  /* ============================================ */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url('https://media.giphy.com/media/PuKB28eaYWFAnLdT6Z/giphy.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+    filter: brightness(1.05) saturate(1.4);
+    animation: bgGifShift 18s ease-in-out infinite alternate;
+  }
+  @keyframes bgGifShift {
+    0% { filter: brightness(1) saturate(1.3) contrast(1.05); transform: scale(1); }
+    100% { filter: brightness(1.15) saturate(1.55) contrast(1.1); transform: scale(1.04); }
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at center, rgba(0,10,10,0.05) 0%, rgba(0,5,5,0.35) 100%),
+      linear-gradient(rgba(0, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 100% 100%, 50px 50px, 50px 50px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove { 0% { background-position: 0 0, 0 0, 0 0; } 100% { background-position: 0 0, 50px 50px, 50px 50px; } }
+
+  /* ============================================ */
+  /* --- CUSTOM CURSOR --- */
+  /* ============================================ */
+  * { cursor: none !important; }
+  .cursor-dot {
+    position: fixed; width: 6px; height: 6px; background-color: #00ffff;
+    border-radius: 50%; pointer-events: none; z-index: 99999;
+    transform: translate(-50%, -50%); box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+  }
+  .cursor-crosshair {
+    position: fixed; width: 32px; height: 32px; pointer-events: none; z-index: 99998;
+    transform: translate(-50%, -50%); transition: width 0.3s ease, height 0.3s ease, transform 0.3s ease;
+  }
+  .cursor-crosshair::before, .cursor-crosshair::after {
+    content: ''; position: absolute; width: 10px; height: 10px; border-color: #00ffff; border-style: solid; transition: all 0.3s ease;
+  }
+  .cursor-crosshair::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
+  .cursor-crosshair::after { top: 0; right: 0; border-width: 2px 2px 0 0; }
+  .cursor-crosshair .bl { position: absolute; bottom: 0; left: 0; width: 10px; height: 10px; border-color: #00ffff; border-style: solid; border-width: 0 0 2px 2px; transition: all 0.3s ease; }
+  .cursor-crosshair .br { position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-color: #00ffff; border-style: solid; border-width: 0 2px 2px 0; transition: all 0.3s ease; }
+  .cursor-dot.hovering { width: 10px; height: 10px; background-color: #fff; box-shadow: 0 0 20px #fff, 0 0 40px #00ffff; }
+  .cursor-crosshair.hovering { transform: translate(-50%, -50%) rotate(90deg) scale(1.5); }
+  .cursor-crosshair.hovering::before, .cursor-crosshair.hovering::after, .cursor-crosshair.hovering .bl, .cursor-crosshair.hovering .br { border-color: #ffffff; box-shadow: 0 0 10px #ffffff; }
+
+  /* Click ripple */
+  .click-ripple {
+    position: fixed; pointer-events: none; z-index: 99997;
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 2px solid #00ffff;
+    transform: translate(-50%, -50%);
+    animation: rippleExpand 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+  }
+  @keyframes rippleExpand {
+    0% { width: 10px; height: 10px; opacity: 1; }
+    100% { width: 100px; height: 100px; opacity: 0; }
+  }
+
+  /* ============================================ */
+  /* --- NAVBAR --- */
+  /* ============================================ */
+  .navbar {
+    position: fixed; top: 0; left: 0; width: 100%; padding: 20px 50px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(0, 15, 15, 0.4);
+    backdrop-filter: blur(20px) saturate(1.3); -webkit-backdrop-filter: blur(20px) saturate(1.3);
+    z-index: 1000; border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    animation: navSlideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  @keyframes navSlideDown {
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.8rem;
+    color: #00ffff; letter-spacing: 6px;
+    background: linear-gradient(90deg, #00ffff, #00b3b3, #ffffff, #00ffff);
+    background-size: 300% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: logoShine 3s linear infinite, logoPulse 2s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 3px rgba(0,0,0,0.9));
+    position: relative;
+  }
+  .nav-logo::after {
+    content: '_';
+    color: #00ffff;
+    -webkit-text-fill-color: #00ffff;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes logoShine { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+  @keyframes logoPulse {
+    0% { filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 3px rgba(0,0,0,0.9)); }
+    100% { filter: drop-shadow(0 0 25px rgba(0, 255, 255, 1)) drop-shadow(0 0 40px rgba(0, 255, 255, 0.6)) drop-shadow(0 0 3px rgba(0,0,0,0.9)); }
+  }
+
+  .nav-links { display: flex; gap: 20px; }
+
+  /* --- BUTTONS (clean, animated) --- */
+  .btn-nav {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 10px 24px;
+    background: rgba(0, 255, 255, 0.18);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; text-decoration: none !important;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.37),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    text-shadow: 0 0 5px rgba(0,0,0,0.8);
+    cursor: pointer;
+    z-index: 1001;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                background 0.3s ease,
+                box-shadow 0.3s ease,
+                letter-spacing 0.3s ease;
+    animation: navBtnGlow 3s ease-in-out infinite alternate;
+  }
+  @keyframes navBtnGlow {
+    0% { box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 10px rgba(0, 255, 255, 0.2); }
+    100% { box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 25px rgba(0, 255, 255, 0.5); }
+  }
+  .btn-nav::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: conic-gradient(transparent, transparent, transparent, #00ffff, transparent, transparent, transparent);
+    animation: spinBorder 3s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes spinBorder { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  .btn-nav::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 48px;
+    background: rgba(0, 255, 255, 0.15);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .btn-nav > span { position: relative; z-index: 3; }
+  .btn-nav .shimmer {
+    position: absolute; top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: skewX(-25deg);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .btn-nav:hover {
+    transform: scale(1.05) translateY(-3px);
+    background: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    letter-spacing: 3px;
+  }
+  .btn-nav:hover .shimmer { animation: shimmerAnim 0.8s forwards; }
+  @keyframes shimmerAnim { 100% { left: 200%; } }
+  .btn-nav:active { transform: scale(0.97) translateY(0); }
+
+  @media (max-width: 850px) {
+    .navbar { padding: 15px 20px; flex-direction: column; gap: 8px; }
+    .nav-logo { font-size: 1.5rem; }
+    .nav-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .btn-nav {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 0.6rem;
+      justify-content: center;
+      min-height: 36px;
+    }
+    .nav-links .btn-nav:nth-child(3) {
+      grid-column: 1 / -1;
+      width: 100%;
+      max-width: 200px;
+      justify-self: center;
+    }
+  }
+
+  /* ============================================ */
+  /* --- HERO WRAPPER --- */
+  /* ============================================ */
+  .akira-wrapper {
+    background: transparent;
+    padding: clamp(18px, 5vw, 60px) clamp(12px, 3vw, 24px);
+    padding-top: 120px;
+    padding-bottom: 80px;
+    display: flex; justify-content: center; align-items: center;
+    width: 100%; box-sizing: border-box;
+    position: relative; min-height: 100vh;
+  }
+
+  .akira-particles {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  }
+  .particle {
+    position: absolute; width: 2px; height: 2px; background: #00ffff; border-radius: 50%;
+    box-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff;
+    animation: particleFloat linear infinite;
+  }
+  @keyframes particleFloat {
+    0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) translateX(50px) scale(1.2); opacity: 0; }
+  }
+
+  /* --- HERO GLASS CARD --- */
+  .akira-glass-card {
+    position: relative; z-index: 5; display: flex; align-items: center; gap: 40px;
+    width: 90%; max-width: 850px; padding: 40px;
+    background: rgba(0, 20, 20, 0.45);
+    backdrop-filter: blur(30px) saturate(1.8); -webkit-backdrop-filter: blur(30px) saturate(1.8);
+    border: 1px solid rgba(0, 255, 255, 0.5); border-radius: 20px;
+    box-shadow:
+      0 25px 60px rgba(0,0,0,0.6),
+      0 0 40px rgba(0, 255, 255, 0.2),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+      inset 0 0 60px rgba(0, 255, 255, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s ease, box-shadow .35s ease, background .35s ease;
+    overflow: hidden; box-sizing: border-box;
+    animation: cardFloat 6s ease-in-out infinite alternate;
+  }
+  @keyframes cardFloat {
+    0% { box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0, 255, 255, 0.2), inset 0 0 0 1px rgba(255,255,255,0.15), inset 0 0 60px rgba(0,255,255,0.08), 0 0 20px rgba(0, 255, 255, 0.15); }
+    100% { box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 50px rgba(0, 255, 255, 0.4), inset 0 0 0 1px rgba(255,255,255,0.15), inset 0 0 60px rgba(0,255,255,0.18), 0 0 40px rgba(0, 255, 255, 0.35); }
+  }
+  .akira-glass-card:hover {
+    border-color: rgba(0, 255, 255, 0.9);
+    background: rgba(0, 30, 30, 0.55);
+    transform: translateY(-5px);
+  }
+
+  .akira-glass-card::before {
+    content: ''; position: absolute; top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(0, 255, 255, 0.2), transparent);
+    transform: skewX(-25deg); animation: sheen 5s infinite;
+    pointer-events: none;
+  }
+  @keyframes sheen { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+  .profile-col { display: flex; flex-direction: column; align-items: center; gap: 20px; flex-shrink: 0; position: relative; }
+
+  .akira-profile-wrap {
+    position: relative; width: 170px; height: 170px;
+    display: flex; justify-content: center; align-items: center;
+    transition: transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .akira-profile-wrap:hover { transform: translateY(-5px) scale(1.04); }
+
+  .akira-profile-wrap::before {
+    content: ''; position: absolute; inset: -15px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,255,0.9) 0%, transparent 70%);
+    animation: auraPulse 2.5s ease-in-out infinite alternate; z-index: 1;
+  }
+  @keyframes auraPulse {
+    0% { transform: scale(0.8); opacity: 0.4; filter: blur(10px); }
+    100% { transform: scale(1.25); opacity: 1; filter: blur(28px); }
+  }
+
+  .akira-profile-wrap::after {
+    content: ''; position: absolute; inset: -8px; border-radius: 50%;
+    border: 2px dashed rgba(0, 255, 255, 0.8);
+    animation: spinRing 8s linear infinite; z-index: 3; pointer-events: none;
+  }
+  @keyframes spinRing { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  .akira-profile {
+    width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+    position: relative; z-index: 2; background-color: #111;
+    border: 2px solid rgba(0, 255, 255, 0.9);
+    animation: floatImage 4s ease-in-out infinite alternate;
+  }
+  @keyframes floatImage {
+    0% { transform: translateY(0); box-shadow: 0 0 25px rgba(0, 255, 255, 0.5); }
+    100% { transform: translateY(-5px); box-shadow: 0 10px 50px rgba(0, 255, 255, 1); }
+  }
+
+  .akira-profile-glow {
+    position: absolute; inset: 0; border-radius: 50%; z-index: 4; overflow: hidden; pointer-events: none;
+  }
+  .akira-profile-glow::after {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.7) 50%, transparent 100%);
+    transform: rotate(45deg); animation: sweep 4s ease-in-out infinite;
+  }
+  @keyframes sweep { 0% { transform: translateX(-150%) rotate(45deg); } 50%, 100% { transform: translateX(150%) rotate(45deg); } }
+
+  .akira-text-box { flex: 1; color: #fff; min-width: 0; position: relative; }
+  .akira-typing {
+    font-size: 1.1rem; line-height: 1.8; color: #ffffff; min-height: 100px;
+    font-family: 'Rajdhani', 'Space Mono', monospace; font-weight: 500;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.6), 0 2px 3px rgba(0,0,0,1);
+    letter-spacing: 0.5px; word-wrap: break-word; overflow-wrap: anywhere;
+    animation: textGlow 3s infinite alternate;
+  }
+  @keyframes textGlow {
+    0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.5), 0 2px 3px rgba(0,0,0,1); }
+    100% { text-shadow: 0 0 16px rgba(255, 255, 255, 1), 0 0 32px rgba(0, 255, 255, 0.8), 0 2px 3px rgba(0,0,0,1); }
+  }
+  .akira-cursor {
+    display: inline-block; width: 10px; height: 1.15rem; background-color: #00ffff;
+    animation: blink 0.8s step-end infinite; vertical-align: bottom; margin-left: 6px;
+    box-shadow: 0 0 25px #00ffff, 0 0 50px #00ffff;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  .akira-motto {
+    margin-top: 25px; font-family: 'Orbitron', sans-serif; font-size: 1.1rem;
+    font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+    display: flex; align-items: center; gap: 15px;
+    background: linear-gradient(90deg, #00ffff, #99ffff, #ffffff, #99ffff, #00ffff);
+    background-size: 300% auto; color: transparent;
+    -webkit-background-clip: text; background-clip: text;
+    animation: shine 2s linear infinite;
+    filter: drop-shadow(0 0 12px rgba(0, 255, 255, 1)) drop-shadow(0 0 4px rgba(0,0,0,1));
+  }
+  @keyframes shine { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+  .akira-motto::before {
+    content: '>'; display: flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px;
+    color: #00ffff; font-family: 'Share Tech Mono', monospace; font-size: 1.2rem;
+    text-shadow: 0 0 15px #00ffff; flex-shrink: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    animation: arrowBlink 1s step-end infinite;
+  }
+  @keyframes arrowBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* ============================================ */
+  /* --- SECTIONS --- */
+  /* ============================================ */
+  .content-section {
+    min-height: 100vh; padding: 120px 20px 80px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    background: transparent;
+    position: relative; border-top: 1px solid rgba(0, 255, 255, 0.2);
+    overflow: hidden;
+    scroll-margin-top: 80px;
+  }
+
+  .hud-frame {
+    position: absolute; inset: 50px; pointer-events: none; z-index: 1;
+  }
+  .hud-frame span {
+    position: absolute; width: 50px; height: 50px;
+    border-color: #00ffff; border-style: solid;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 1));
+    animation: hudPulse 2.5s ease-in-out infinite alternate;
+  }
+  .hud-frame .tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+  .hud-frame .tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+  .hud-frame .bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+  .hud-frame .br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+  @keyframes hudPulse {
+    0% { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .hud-scanline {
+    position: absolute; left: 50px; right: 50px; height: 1px;
+    background: linear-gradient(90deg, transparent, #00ffff, transparent);
+    box-shadow: 0 0 20px #00ffff, 0 0 40px rgba(0, 255, 255, 0.8);
+    z-index: 1; pointer-events: none;
+    animation: hudScan 5s ease-in-out infinite;
+  }
+  @keyframes hudScan {
+    0%, 100% { top: 15%; opacity: 0.3; }
+    50% { top: 85%; opacity: 1; }
+  }
+
+  .hud-frame .reticle-top, .hud-frame .reticle-bottom {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    width: 2px; height: 20px; background: #00ffff;
+    box-shadow: 0 0 15px #00ffff;
+    animation: reticleBlink 1.5s step-end infinite;
+  }
+  .hud-frame .reticle-top { top: -1px; }
+  .hud-frame .reticle-bottom { bottom: -1px; }
+  @keyframes reticleBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+  .section-hex {
+    position: absolute; width: 40px; height: 40px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    pointer-events: none; animation: hexFloat 12s linear infinite;
+    z-index: 0;
+  }
+  @keyframes hexFloat {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif; font-size: 3.5rem; font-weight: 900;
+    color: #00ffff;
+    text-shadow:
+      0 0 20px rgba(0, 255, 255, 1),
+      0 0 40px rgba(0, 255, 255, 0.7),
+      0 0 70px rgba(0, 255, 255, 0.4),
+      0 3px 6px rgba(0,0,0,1);
+    margin-bottom: 50px; letter-spacing: 10px;
+    animation: titlePulse 2s infinite alternate;
+    position: relative; z-index: 2;
+  }
+  .section-title::after {
+    content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+    width: 80px; height: 3px; background: #00ffff;
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+    animation: lineExpand 2s ease-in-out infinite alternate;
+  }
+  @keyframes lineExpand {
+    0% { width: 40px; opacity: 0.5; }
+    100% { width: 180px; opacity: 1; }
+  }
+  @keyframes titlePulse {
+    0% { text-shadow: 0 0 20px rgba(0, 255, 255, 1), 0 0 40px rgba(0, 255, 255, 0.7), 0 0 70px rgba(0, 255, 255, 0.4), 0 3px 6px rgba(0,0,0,1); }
+    100% { text-shadow: 0 0 40px rgba(0, 255, 255, 1), 0 0 70px rgba(0, 255, 255, 0.9), 0 0 100px rgba(0, 255, 255, 0.5), 0 3px 6px rgba(0,0,0,1); }
+  }
+
+  .section-card {
+    position: relative; z-index: 2;
+    max-width: 750px; width: 100%; padding: 45px 50px;
+    background: rgba(0, 20, 20, 0.5);
+    backdrop-filter: blur(30px) saturate(1.8); -webkit-backdrop-filter: blur(30px) saturate(1.8);
+    border: 1px solid rgba(0, 255, 255, 0.5); border-radius: 16px;
+    box-shadow:
+      0 25px 60px rgba(0, 0, 0, 0.6),
+      0 0 40px rgba(0, 255, 255, 0.2),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+      inset 0 0 60px rgba(0, 255, 255, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    animation: sectionCardFloat 5s ease-in-out infinite alternate;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease, background 0.4s ease;
+  }
+  .section-card:hover {
+    border-color: rgba(0, 255, 255, 0.9);
+    background: rgba(0, 30, 30, 0.6);
+    transform: translateY(-5px);
+  }
+  @keyframes sectionCardFloat {
+    0% { box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0, 255, 255, 0.2), inset 0 0 0 1px rgba(255,255,255,0.15), inset 0 0 60px rgba(0,255,255,0.08), 0 0 25px rgba(0, 255, 255, 0.15); }
+    100% { box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 50px rgba(0, 255, 255, 0.4), inset 0 0 0 1px rgba(255,255,255,0.15), inset 0 0 60px rgba(0,255,255,0.18), 0 0 45px rgba(0, 255, 255, 0.35); }
+  }
+
+  .section-text {
+    font-size: 1.2rem; line-height: 1.9; color: #ffffff;
+    font-family: 'Rajdhani', 'Share Tech Mono', monospace; font-weight: 500;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,1), 0 0 15px rgba(0, 255, 255, 0.4);
+    min-height: 90px;
+    text-align: left;
+  }
+  .section-text .tw-cursor {
+    display: inline-block; width: 9px; height: 1.2rem;
+    background-color: #00ffff; vertical-align: bottom; margin-left: 3px;
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+    animation: blink 0.8s step-end infinite;
+  }
+
+  /* --- MESSAGE ME BUTTON --- */
+  .btn-main-contact {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 16px 44px; margin-top: 40px;
+    background: rgba(0, 255, 255, 0.2);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase; text-decoration: none !important;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    text-shadow: 0 0 5px rgba(0,0,0,0.8);
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 10;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                background 0.3s ease,
+                box-shadow 0.3s ease,
+                letter-spacing 0.3s ease;
+    animation: navBtnGlow 3s ease-in-out infinite alternate;
+  }
+  .btn-main-contact::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: conic-gradient(transparent, transparent, transparent, #00ffff, transparent, transparent, transparent);
+    animation: spinBorder 3s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .btn-main-contact::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 48px;
+    background: rgba(0, 255, 255, 0.15);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .btn-main-contact > svg,
+  .btn-main-contact > span { position: relative; z-index: 3; }
+  .btn-main-contact svg { transition: all 0.4s ease; }
+  .btn-main-contact .shimmer {
+    position: absolute; top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: skewX(-25deg);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .btn-main-contact:hover {
+    transform: scale(1.05) translateY(-3px);
+    background: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    letter-spacing: 4px;
+  }
+  .btn-main-contact:hover svg { fill: #fff; transform: scale(1.2) rotate(-10deg); filter: drop-shadow(0 0 12px #fff); }
+  .btn-main-contact:hover .shimmer { animation: shimmerAnim 0.8s forwards; }
+  .btn-main-contact:active { transform: scale(0.97) translateY(0); }
+
+  /* Reveal */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.active {
+    opacity: 1; transform: translateY(0);
+  }
+
+  @media (max-width: 850px) {
+    body::before {
+      background-attachment: scroll;
+      filter: brightness(1) saturate(1.3);
+    }
+    .navbar {
+      padding: 15px 20px; flex-direction: column; gap: 10px;
+      background: rgba(0, 15, 15, 0.5);
+    }
+    .nav-logo { font-size: 1.4rem; letter-spacing: 4px; }
+    .nav-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .btn-nav {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 0.6rem;
+      justify-content: center;
+      min-height: 36px;
+    }
+    .nav-links .btn-nav:nth-child(3) {
+      grid-column: 1 / -1;
+      width: 100%;
+      max-width: 200px;
+      justify-self: center;
+    }
+
+    .akira-wrapper { padding: 16px 10px; padding-top: 130px; min-height: 100vh; }
+
+    .akira-glass-card {
+      width: 100%; max-width: 560px; margin: 0 auto;
+      flex-direction: column; text-align: center; padding: clamp(22px, 5vw, 32px) clamp(16px, 4vw, 24px); gap: 24px; border-radius: 16px;
+      background: rgba(0, 20, 20, 0.6);
+    }
+    .akira-profile-wrap { width: clamp(118px, 34vw, 160px); height: clamp(118px, 34vw, 160px); }
+    .akira-profile-wrap:hover { transform: none; }
+    .akira-text-box { width: 100%; }
+    .akira-typing { font-size: clamp(.9rem, 2.9vw, 1rem); line-height: 1.75; min-height: 0; text-align: center; }
+    .akira-motto { justify-content: center; flex-wrap: wrap; line-height: 1.7; margin-top: 20px; font-size: .75rem; letter-spacing: 1.5px; }
+    .akira-motto::before { width: 20px; font-size: 1rem; }
+
+    .content-section { padding: 100px 15px 60px; scroll-margin-top: 130px; }
+    .hud-frame { inset: 25px; }
+    .hud-frame span { width: 30px; height: 30px; }
+    .hud-scanline { left: 25px; right: 25px; }
+
+    .section-title { font-size: 2rem; letter-spacing: 5px; margin-bottom: 35px; }
+    .section-title::after { bottom: -10px; height: 2px; }
+    .section-card { padding: 28px 22px; border-radius: 12px; background: rgba(0, 20, 20, 0.6); }
+    .section-text { font-size: 1rem; line-height: 1.8; min-height: 70px; text-align: left; }
+    .section-text .tw-cursor { height: 1rem; width: 7px; }
+    .btn-main-contact { margin-top: 30px; padding: 14px 32px; font-size: 0.8rem; }
+
+    *, *::before, *::after { cursor: auto !important; }
+    .cursor-dot, .cursor-crosshair { display: none !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important; transition-duration: .01ms !important;
+    }
+  }
+
+  #akiraHiddenMusic { display: none !important; }
+</style>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-crosshair" id="cursorCrosshair">
+  <div class="bl"></div>
+  <div class="br"></div>
+</div>
+
+<nav class="navbar">
+  <div class="nav-logo">AIZEN</div>
+  <div class="nav-links">
+    <a href="#home" class="btn-nav"><span class="shimmer"></span><span>Home</span></a>
+    <a href="#about" class="btn-nav"><span class="shimmer"></span><span>About Me</span></a>
+    <a href="#contact" class="btn-nav"><span class="shimmer"></span><span>Contact</span></a>
+  </div>
+</nav>
+
+<div class="akira-wrapper" id="home">
+  <div class="akira-particles" id="particles"></div>
+
+  <div class="akira-glass-card" id="glassCard">
+    <div class="profile-col">
+      <div class="akira-profile-wrap">
+        <img class="akira-profile" src="https://media.giphy.com/media/fQgaAIsH0lGvB7JsMq/giphy.gif" alt="Aizen Profile" loading="eager">
+        <div class="akira-profile-glow"></div>
+      </div>
+    </div>
+
+    <div class="akira-text-box">
+      <div class="akira-typing" id="akiraTyping"></div>
+      <div class="akira-motto">Code. Explore. Learn. Improve.</div>
+    </div>
+  </div>
+</div>
+
+<section class="content-section reveal" id="about">
+  <div class="hud-frame">
+    <span class="tl"></span>
+    <span class="tr"></span>
+    <span class="bl"></span>
+    <span class="br"></span>
+    <div class="reticle-top"></div>
+    <div class="reticle-bottom"></div>
+  </div>
+  <div class="hud-scanline"></div>
+  <div class="section-hex" style="left: 10%; animation-delay: 0s;"></div>
+  <div class="section-hex" style="left: 30%; animation-delay: 2s; animation-duration: 15s;"></div>
+  <div class="section-hex" style="left: 70%; animation-delay: 1s; animation-duration: 18s;"></div>
+  <div class="section-hex" style="left: 88%; animation-delay: 3s;"></div>
+
+  <h2 class="section-title">ABOUT ME</h2>
+
+  <div class="section-card">
+    <p class="section-text" data-typewriter="I am Prince Dexter O. Ong — a passionate individual exploring the realms of programming, technology, and cybersecurity. I thrive on discovering new ideas, experimenting with code, and continuously pushing my skills to the limit. Welcome to my digital space."></p>
+  </div>
+</section>
+
+<section class="content-section reveal" id="contact">
+  <div class="hud-frame">
+    <span class="tl"></span>
+    <span class="tr"></span>
+    <span class="bl"></span>
+    <span class="br"></span>
+    <div class="reticle-top"></div>
+    <div class="reticle-bottom"></div>
+  </div>
+  <div class="hud-scanline"></div>
+  <div class="section-hex" style="left: 15%; animation-delay: 0.5s;"></div>
+  <div class="section-hex" style="left: 45%; animation-delay: 2.5s; animation-duration: 14s;"></div>
+  <div class="section-hex" style="left: 78%; animation-delay: 1.5s; animation-duration: 17s;"></div>
+
+  <h2 class="section-title">CONTACT ME</h2>
+
+  <div class="section-card">
+    <p class="section-text" data-typewriter="Feel free to reach out to me directly via Messenger — I'm always open to talk about code, tech, or anything in between."></p>
+
+    <a href="https://m.me/YOUR_FB_USERNAME" target="_blank" rel="noopener noreferrer" class="btn-main-contact">
+      <span class="shimmer"></span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#00ffff"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      <span>Message Me</span>
+    </a>
+  </div>
+</section>
+
+<audio id="akiraHiddenMusic" loop preload="none" aria-hidden="true"></audio>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+
+  // --- 1. TYPING (Hero) ---
+  const message = "Hi, I'm Prince Dexter O. Ong Just a simple person with a passion for programming, technology, and cybersecurity. I enjoy exploring new ideas, experimenting with code, and continuously improving my skills.";
+  const target = $("akiraTyping");
+  if (target) {
+    let index = 0;
+    const typeText = () => {
+      if (index < message.length) {
+        target.textContent = message.slice(0, ++index);
+        const cursor = document.createElement("span");
+        cursor.className = "akira-cursor";
+        target.appendChild(cursor);
+        window.setTimeout(typeText, 28);
+      } else {
+        const cursor = document.createElement("span");
+        cursor.className = "akira-cursor";
+        target.appendChild(cursor);
+      }
+    };
+    window.setTimeout(typeText, 350);
+  }
+
+  // --- 2. TYPEWRITER ON SCROLL ---
+  const typewriters = document.querySelectorAll('[data-typewriter]');
+  const typewriterObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        if (el.dataset.typed) return;
+        el.dataset.typed = "true";
+        const text = el.dataset.typewriter;
+        el.textContent = "";
+        let i = 0;
+        const cursor = document.createElement("span");
+        cursor.className = "tw-cursor";
+        el.appendChild(cursor);
+        const typeChar = () => {
+          if (i < text.length) {
+            cursor.insertAdjacentText("beforebegin", text.charAt(i));
+            i++;
+            const delay = text.charAt(i - 1) === "." ? 180 : (text.charAt(i - 1) === "," ? 90 : 22);
+            window.setTimeout(typeChar, delay);
+          } else {
+            window.setTimeout(() => cursor.remove(), 2000);
+          }
+        };
+        window.setTimeout(typeChar, 400);
+        typewriterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  typewriters.forEach((el) => typewriterObserver.observe(el));
+
+  // --- 3. PARTICLES ---
+  const particleContainer = $("particles");
+  if (particleContainer) {
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement("div");
+      p.className = "particle";
+      p.style.left = Math.random() * 100 + "%";
+      p.style.animationDuration = (Math.random() * 8 + 6) + "s";
+      p.style.animationDelay = (Math.random() * 8) + "s";
+      p.style.opacity = Math.random() * 0.7 + 0.3;
+      const size = Math.random() * 3 + 1;
+      p.style.width = size + "px";
+      p.style.height = size + "px";
+      particleContainer.appendChild(p);
+    }
+  }
+
+  // --- 4. CURSOR ---
+  const dot = $("cursorDot");
+  const ring = $("cursorCrosshair");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (dot && ring && finePointer && !reduceMotion) {
+    let pointerX = window.innerWidth / 2, pointerY = window.innerHeight / 2;
+    let ringX = pointerX, ringY = pointerY, cursorFrame = 0;
+
+    document.addEventListener("pointermove", (event) => {
+      pointerX = event.clientX; pointerY = event.clientY;
+      dot.style.left = pointerX + "px"; dot.style.top = pointerY + "px";
+      if (!cursorFrame) cursorFrame = requestAnimationFrame(moveRing);
+    }, { passive: true });
+
+    function moveRing() {
+      ringX += (pointerX - ringX) * 0.24;
+      ringY += (pointerY - ringY) * 0.24;
+      ring.style.left = ringX + "px"; ring.style.top = ringY + "px";
+      if (Math.abs(pointerX - ringX) > 0.2 || Math.abs(pointerY - ringY) > 0.2) {
+        cursorFrame = requestAnimationFrame(moveRing);
+      } else cursorFrame = 0;
+    }
+
+    const hoverables = document.querySelectorAll("a, button, .akira-profile, .akira-glass-card, .btn-nav, .btn-main-contact, .section-card");
+    hoverables.forEach((el) => {
+      el.addEventListener("pointerenter", () => { dot.classList.add("hovering"); ring.classList.add("hovering"); });
+      el.addEventListener("pointerleave", () => { dot.classList.remove("hovering"); ring.classList.remove("hovering"); });
+    });
+  }
+
+  // --- 5. CLICK RIPPLE ---
+  document.addEventListener("click", (e) => {
+    const ripple = document.createElement("div");
+    ripple.className = "click-ripple";
+    ripple.style.left = e.clientX + "px";
+    ripple.style.top = e.clientY + "px";
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 800);
+  }, { passive: true });
+
+  // --- 6. SCROLL REVEAL ---
+  const reveals = document.querySelectorAll(".reveal");
+  if (reveals.length) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach((el) => revealObserver.observe(el));
+  }
+
+  // --- 7. SMOOTH SCROLL FOR NAV ---
+  const navButtons = document.querySelectorAll('a[href^="#"]');
+  navButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const targetId = btn.getAttribute("href");
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const navHeight = document.querySelector(".navbar").offsetHeight + 20;
+        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        window.scrollTo({ top: targetPosition, behavior: "smooth" });
+      }
+    });
+  });
+
+  // --- 8. UI DETECTOR ---
+  const root = document.documentElement;
+  const mobileQuery = window.matchMedia("(max-width: 850px), (pointer: coarse)");
+  const updateDeviceUI = () => {
+    const isMobile = mobileQuery.matches;
+    root.classList.toggle("akira-device-mobile", isMobile);
+    root.classList.toggle("akira-device-desktop", !isMobile);
+    root.dataset.akiraLayout = isMobile ? "mobile" : "desktop";
+  };
+  updateDeviceUI();
+  if (typeof mobileQuery.addEventListener === "function") mobileQuery.addEventListener("change", updateDeviceUI);
+  else if (typeof mobileQuery.addListener === "function") mobileQuery.addListener(updateDeviceUI);
+  window.addEventListener("resize", updateDeviceUI, { passive: true });
+
+  // --- 9. MUSIC ---
+  const MUSIC_URL = "https://audio.jukehost.co.uk/01a1ab9c-f86e-712e-be60-402f3ce3f819";
+  const music = $("akiraHiddenMusic");
+
+  if (music) {
+    music.src = MUSIC_URL;
+    music.loop = true;
+    music.volume = 0.28;
+    let isPlaying = false;
+
+    const startMusic = () => {
+      if (isPlaying || !music.paused) return;
+      const attempt = music.play();
+      if (attempt !== undefined) {
+        attempt.then(() => { isPlaying = true; }).catch(() => {});
+      }
+    };
+
+    startMusic();
+    ["pointerdown", "keydown", "touchstart", "scroll"].forEach((eventName) => {
+      window.addEventListener(eventName, startMusic, { once: true, passive: true });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
